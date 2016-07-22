@@ -5,6 +5,7 @@ namespace Instagram\Framework;
 use Curl\Curl;
 use Instagram\Framework\Constant\RequestConstants;
 use Instagram\Framework\Exception\RequestException;
+use Instagram\Framework\Util\CustomJsonMapper;
 
 abstract class Request
 {
@@ -52,7 +53,7 @@ abstract class Request
      * Request constructor.
      */
     public function __construct(){
-        $this->mapper = new \JsonMapper();
+        $this->mapper = new CustomJsonMapper();
     }
 
     /**
