@@ -46,8 +46,8 @@ class CurrentUserRequest extends BaseRequest
         $user = $json->entry_data->ProfilePage[ 0 ]->user;
 
         $userObject = $this->mapper->map($user, $this->getResponseObject());
-        $userObject->setFollowersCount($user->follows->count);
-        $userObject->setFollowingCount($user->followed_by->count);
+        $userObject->setFollowersCount($user->followed_by->count);
+        $userObject->setFollowingCount($user->follows->count);
 
         // account
         $request = new EditAccountRequest($this->instagram);
