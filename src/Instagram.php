@@ -155,6 +155,7 @@ class Instagram
      * @param $mediaId
      * @return object
      * @throws InstagramException
+     * @throws UnauthorizedException
      */
     public function likeMedia($mediaId)
     {
@@ -164,6 +165,10 @@ class Instagram
 
         $request = new LikeMediaRequest($this, $mediaId);
         $response = $request->execute();
+
+        if ($response->isFail() && !$response->isAuthorized()) {
+            throw new UnauthorizedException($response->getMessage());
+        }
 
         return $response;
     }
