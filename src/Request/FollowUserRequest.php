@@ -43,6 +43,6 @@ class FollowUserRequest extends BaseRequest
     }
 
     public function throwExceptionIfResponseNotOk(){
-        return true;
+        return false;
     }
 }

@@ -5,6 +5,7 @@ namespace Instagram;
 use Instagram\Framework\Exception\CheckpointException;
 use Instagram\Framework\Exception\InstagramException;
 use Instagram\Framework\Exception\InvalidCredentialsException;
+use Instagram\Framework\Exception\UnauthorizedException;
 use Instagram\Request\CurrentUserRequest;
 use Instagram\Request\FollowUserRequest;
 use Instagram\Request\LikeMediaRequest;
@@ -131,6 +132,7 @@ class Instagram
      * @param $userId
      * @return object
      * @throws InstagramException
+     * @throws UnauthorizedException
      */
     public function followUser($userId)
     {
@@ -140,6 +142,10 @@ class Instagram
 
         $request = new FollowUserRequest($this, $userId);
         $response = $request->execute();
+
+        if ($response->isFail() && !$response->isAuthorized()) {
+            throw new UnauthorizedException($response->getMessage());
+        }
 
         return $response;
     }
